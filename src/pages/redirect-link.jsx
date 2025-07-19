@@ -19,13 +19,14 @@ const RedirectLink = () => {
     fn()
   },[])
 
-  useEffect(()=>
-  { 
-    if(!loading && data)
-    {
-      fnStats()
-    }
-  },[loading])
+ useEffect(() => {
+  if (!loading && data) {
+    (async () => {
+      await fnStats(); // store click in Supabase
+      window.location.href = data.original_url; // redirect!
+    })();
+  }
+}, [loading]);
 
   if(loading || loadingStats)
   {
